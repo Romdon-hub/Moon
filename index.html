@@ -24,15 +24,15 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 2.5rem;
+            border-radius: 24px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 650px;
+            max-width: 550px;
             text-align: center;
         }
         h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 0.5rem;
             background: linear-gradient(90deg, #38bdf8, #818cf8);
             -webkit-background-clip: text;
@@ -50,29 +50,31 @@
             display: block;
             margin-bottom: 0.5rem;
             color: #cbd5e1;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
-        input[type="text"], textarea, input[type="file"] {
+        input[type="text"] {
             width: 100%;
-            padding: 0.8rem 1rem;
+            padding: 0.9rem 1.2rem;
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
+            border-radius: 12px;
             color: #fff;
             outline: none;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
-        textarea {
-            resize: vertical;
-            min-height: 80px;
+        input[type="text"]:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
         }
         button {
             width: 100%;
-            padding: 0.8rem;
+            padding: 0.9rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             background: linear-gradient(90deg, #38bdf8, #6366f1);
             color: #fff;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
@@ -80,180 +82,120 @@
         }
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
         }
         
-        #main-screen {
+        /* สไลด์โชว์รูปภาพ */
+        #gallery-screen {
             display: none;
-            text-align: left;
         }
-        .user-greeting {
-            font-size: 1.2rem;
-            color: #38bdf8;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-        .upload-section, .feed-section {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 1.2rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .feed-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-top: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .feed-item .author {
-            font-weight: bold;
-            color: #38bdf8;
-            margin-bottom: 0.5rem;
-        }
-        .feed-item img {
+        .slider-container {
+            position: relative;
             width: 100%;
-            border-radius: 10px;
-            margin-top: 0.5rem;
-            margin-bottom: 0.8rem;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .feed-item .comment-box {
-            background: rgba(15, 23, 42, 0.8);
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            border-left: 3px solid #38bdf8;
-            color: #e2e8f0;
-            font-size: 0.95rem;
+        .slide {
+            display: none;
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+        }
+        .slide.active {
+            display: block;
+        }
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        .nav-btn:hover {
+            background: rgba(56, 189, 248, 0.8);
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+        
+        .user-greeting {
+            font-size: 1.3rem;
+            color: #38bdf8;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- หน้ากรอกชื่อเข้าสู่ระบบ -->
+    <!-- หน้าที่ 1: กรอกชื่อ -->
     <div id="login-screen" class="card">
-        <h1>Moon Community</h1>
-        <p>กรุณาระบุชื่อเพื่อเข้าสู่หน้าเว็บ</p>
-        <form id="loginForm">
+        <h1>Moon Project</h1>
+        <p>ยินดีต้อนรับเข้าสู่ระบบ กรุณาระบุชื่อของคุณ</p>
+        <form id="userForm">
             <div class="form-group">
                 <label>ชื่อ - นามสกุล</label>
-                <input type="text" id="fullname" placeholder="ระบุชื่อของคุณ" required>
+                <input type="text" id="fullname" placeholder="ระบุชื่อของคุณ..." required>
             </div>
-            <button type="submit">เข้าสู่หน้าเว็บ</button>
+            <button type="submit">เข้าสู่หน้าหลัก 🚀</button>
         </form>
     </div>
 
-    <!-- หน้าหลักแชร์รูป + แสดงโพสต์ทั้งหมด -->
-    <div id="main-screen" class="card">
-        <h1>Moon Community</h1>
+    <!-- หน้าที่ 2: สไลด์โชว์รูปภาพ -->
+    <div id="gallery-screen" class="card">
         <div id="greeting" class="user-greeting"></div>
+        <p>คอลเลกชันรูปภาพแนะนำ</p>
 
-        <!-- กล่องแชร์รูปภาพ -->
-        <div class="upload-section">
-            <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: #cbd5e1;">📸 แชร์รูปภาพของคุณ</h3>
-            <form id="postForm">
-                <div class="form-group">
-                    <label>เลือกรูปภาพ</label>
-                    <input type="file" id="imageInput" accept="image/*" required>
-                </div>
-                <div class="form-group">
-                    <label>ข้อความ / คอมเมนต์ใต้รูปภาพ</label>
-                    <textarea id="commentInput" placeholder="เขียนข้อความหรือคอมเมนต์ถึงรูปนี้..." required></textarea>
-                </div>
-                <button type="submit">แชร์ลงหน้าเว็บ</button>
-            </form>
+        <!-- สไลเดอร์รูปภาพ (เปลี่ยน/เพิ่มชื่อรูปตรงนี้) -->
+        <div class="slider-container">
+            <!-- 🖼️ รูปที่ 1 -->
+            <img class="slide active"<img class="slide active" src="20260514202411_1.jpg" alt="Photo 1">" alt="Photo 1">
+            
+            <!-- 🖼️ รูปที่ 2 -->
+            <img class="slide" src="Screenshot 2026-07-05 225502.png" alt="Photo 2">
+            
+            <!-- ปุ่มกดเปลี่ยนรูป -->
+            <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
+            <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
         </div>
 
-        <!-- ส่วนแสดงโพสต์ของทุกคน -->
-        <div class="feed-section">
-            <h3 style="font-size: 1.1rem; color: #cbd5e1;">🖼️ รูปภาพทั้งหมดที่แชร์</h3>
-            <div id="feedContainer">
-                <p style="text-align: center; margin-top: 1rem; color: #64748b;" id="emptyText">ยังไม่มีรูปภาพที่แชร์ มาร่วมแชร์รูปแรกกัน!</p>
-            </div>
-        </div>
+        <button style="margin-top: 1.5rem;" onclick="location.reload()">↺ ออกจากระบบ</button>
     </div>
 
     <script>
-        let currentUserName = "";
-
-        const loginForm = document.getElementById('loginForm');
+        const userForm = document.getElementById('userForm');
         const loginScreen = document.getElementById('login-screen');
-        const mainScreen = document.getElementById('main-screen');
+        const galleryScreen = document.getElementById('gallery-screen');
         const greeting = document.getElementById('greeting');
-        const postForm = document.getElementById('postForm');
-        const feedContainer = document.getElementById('feedContainer');
 
-        // ดึงโพสต์เก่าจาก LocalStorage
-        function loadPosts() {
-            const savedPosts = JSON.parse(localStorage.getItem('moon_posts') || '[]');
-            if (savedPosts.length > 0) {
-                document.getElementById('emptyText')?.remove();
-                feedContainer.innerHTML = '';
-                savedPosts.forEach(post => {
-                    renderPost(post.author, post.image, post.comment);
-                });
-            }
-        }
-
-        // แสดงโพสต์บนหน้าจอ
-        function renderPost(author, imageSrc, commentText) {
-            const emptyText = document.getElementById('emptyText');
-            if (emptyText) emptyText.style.display = 'none';
-
-            const postDiv = document.createElement('div');
-            postDiv.className = 'feed-item';
-            postDiv.innerHTML = `
-                <div class="author">👤 ${author}</div>
-                <img src="${imageSrc}" alt="Shared image">
-                <div class="comment-box">💬 ${commentText}</div>
-            `;
-            feedContainer.insertBefore(postDiv, feedContainer.firstChild);
-        }
-
-        // เข้าสู่ระบบ
-        loginForm.addEventListener('submit', function(e) {
+        userForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            currentUserName = document.getElementById('fullname').value;
-            greeting.innerText = 'ยินดีต้อนรับคุณ ' + currentUserName + ' 👋';
-            
+            const name = document.getElementById('fullname').value;
+            greeting.innerText = 'สวัสดีคุณ ' + name + ' 👋';
             loginScreen.style.display = 'none';
-            mainScreen.style.display = 'block';
-
-            loadPosts(); // โหลดรูปเก่าๆ ขึ้นมาแสดง
+            galleryScreen.style.display = 'block';
         });
 
-        // โพสต์รูป + บันทึกข้อมูล
-        postForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const file = document.getElementById('imageInput').files[0];
-            const comment = document.getElementById('commentInput').value;
+        // โค้ดเลื่อนสไลด์รูปภาพ
+        let currentSlide = 0;
+        const slides = document.getElementsByClassName('slide');
 
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const imageSrc = event.target.result;
-
-                // บันทิกลง LocalStorage
-                const savedPosts = JSON.parse(localStorage.getItem('moon_posts') || '[]');
-                savedPosts.push({
-                    author: currentUserName,
-                    image: imageSrc,
-                    comment: comment
-                });
-                localStorage.setItem('moon_posts', JSON.stringify(savedPosts));
-
-                // แสดงผลโพสต์ใหม่
-                renderPost(currentUserName, imageSrc, comment);
-
-                // ล้างค่าในช่องกรอก
-                document.getElementById('imageInput').value = '';
-                document.getElementById('commentInput').value = '';
-            };
-
-            reader.readAsDataURL(file);
-        });
+        function changeSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
     </script>
 </body>
 </html>
