@@ -28,7 +28,7 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             text-align: center;
         }
         h1 {
@@ -52,7 +52,7 @@
             color: #cbd5e1;
             font-size: 0.85rem;
         }
-        input[type="text"], input[type="file"] {
+        input[type="text"], textarea, input[type="file"] {
             width: 100%;
             padding: 0.8rem 1rem;
             background: rgba(15, 23, 42, 0.6);
@@ -62,8 +62,9 @@
             outline: none;
             transition: all 0.3s ease;
         }
-        input[type="file"] {
-            cursor: pointer;
+        textarea {
+            resize: vertical;
+            min-height: 80px;
         }
         button {
             width: 100%;
@@ -75,104 +76,183 @@
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
         }
         
-        #gallery-screen {
+        #main-screen {
             display: none;
+            text-align: left;
         }
         .user-greeting {
             font-size: 1.2rem;
             color: #38bdf8;
             margin-bottom: 1.5rem;
+            text-align: center;
         }
-        .image-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        .image-container img {
-            width: 100%;
+        .upload-section, .feed-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.2rem;
             border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .upload-more {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .feed-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .feed-item .author {
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 0.5rem;
+        }
+        .feed-item img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .feed-item .comment-box {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #38bdf8;
+            color: #e2e8f0;
+            font-size: 0.95rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- หน้าที่ 1: กรอกชื่อและเลือกรูปภาพ -->
+    <!-- หน้ากรอกชื่อเข้าสู่ระบบ -->
     <div id="login-screen" class="card">
-        <h1>Moon Project</h1>
-        <p>กรุณาระบุชื่อและแนบรูปภาพของคุณ</p>
-        <form id="userForm">
+        <h1>Moon Community</h1>
+        <p>กรุณาระบุชื่อเพื่อเข้าสู่หน้าเว็บ</p>
+        <form id="loginForm">
             <div class="form-group">
                 <label>ชื่อ - นามสกุล</label>
-                <input type="text" id="fullname" placeholder="ระบุชื่อ-นามสกุลของคุณ" required>
+                <input type="text" id="fullname" placeholder="ระบุชื่อของคุณ" required>
             </div>
-            <div class="form-group">
-                <label>เลือกรูปภาพของคุณ (เลือกได้หลายรูป)</label>
-                <input type="file" id="imageInput" accept="image/*" multiple required>
-            </div>
-            <button type="submit">แสดงรูปภาพ</button>
+            <button type="submit">เข้าสู่หน้าเว็บ</button>
         </form>
     </div>
 
-    <!-- หน้าที่ 2: แสดงรูปภาพที่แนบเข้ามา -->
-    <div id="gallery-screen" class="card">
-        <h1>ยินดีต้อนรับ</h1>
+    <!-- หน้าหลักแชร์รูป + แสดงโพสต์ทั้งหมด -->
+    <div id="main-screen" class="card">
+        <h1>Moon Community</h1>
         <div id="greeting" class="user-greeting"></div>
-        <p>นี่คือรูปภาพที่คุณอัปโหลดไว้:</p>
-        
-        <div id="imageContainer" class="image-container"></div>
 
-        <div class="upload-more">
-            <button onclick="location.reload()">↺ เพิ่มรูปภาพใหม่ / เริ่มใหม่</button>
+        <!-- กล่องแชร์รูปภาพ -->
+        <div class="upload-section">
+            <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: #cbd5e1;">📸 แชร์รูปภาพของคุณ</h3>
+            <form id="postForm">
+                <div class="form-group">
+                    <label>เลือกรูปภาพ</label>
+                    <input type="file" id="imageInput" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label>ข้อความ / คอมเมนต์ใต้รูปภาพ</label>
+                    <textarea id="commentInput" placeholder="เขียนข้อความหรือคอมเมนต์ถึงรูปนี้..." required></textarea>
+                </div>
+                <button type="submit">แชร์ลงหน้าเว็บ</button>
+            </form>
+        </div>
+
+        <!-- ส่วนแสดงโพสต์ของทุกคน -->
+        <div class="feed-section">
+            <h3 style="font-size: 1.1rem; color: #cbd5e1;">🖼️ รูปภาพทั้งหมดที่แชร์</h3>
+            <div id="feedContainer">
+                <p style="text-align: center; margin-top: 1rem; color: #64748b;" id="emptyText">ยังไม่มีรูปภาพที่แชร์ มาร่วมแชร์รูปแรกกัน!</p>
+            </div>
         </div>
     </div>
 
     <script>
-        const userForm = document.getElementById('userForm');
+        let currentUserName = "";
+
+        const loginForm = document.getElementById('loginForm');
         const loginScreen = document.getElementById('login-screen');
-        const galleryScreen = document.getElementById('gallery-screen');
+        const mainScreen = document.getElementById('main-screen');
         const greeting = document.getElementById('greeting');
-        const imageInput = document.getElementById('imageInput');
-        const imageContainer = document.getElementById('imageContainer');
+        const postForm = document.getElementById('postForm');
+        const feedContainer = document.getElementById('feedContainer');
 
-        userForm.addEventListener('submit', function(e) {
+        // ดึงโพสต์เก่าจาก LocalStorage
+        function loadPosts() {
+            const savedPosts = JSON.parse(localStorage.getItem('moon_posts') || '[]');
+            if (savedPosts.length > 0) {
+                document.getElementById('emptyText')?.remove();
+                feedContainer.innerHTML = '';
+                savedPosts.forEach(post => {
+                    renderPost(post.author, post.image, post.comment);
+                });
+            }
+        }
+
+        // แสดงโพสต์บนหน้าจอ
+        function renderPost(author, imageSrc, commentText) {
+            const emptyText = document.getElementById('emptyText');
+            if (emptyText) emptyText.style.display = 'none';
+
+            const postDiv = document.createElement('div');
+            postDiv.className = 'feed-item';
+            postDiv.innerHTML = `
+                <div class="author">👤 ${author}</div>
+                <img src="${imageSrc}" alt="Shared image">
+                <div class="comment-box">💬 ${commentText}</div>
+            `;
+            feedContainer.insertBefore(postDiv, feedContainer.firstChild);
+        }
+
+        // เข้าสู่ระบบ
+        loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const name = document.getElementById('fullname').value;
-            const files = imageInput.files;
-
-            if (files.length === 0) return;
-
-            greeting.innerText = 'สวัสดีคุณ ' + name + ' 👋';
-            imageContainer.innerHTML = ''; // ล้างค่าเดิม
-
-            // ดึงรูปที่เลือกมาแสดงผล
-            Array.from(files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = document.createElement('img');
-                    img.src = event.target.result;
-                    imageContainer.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            });
-
-            // สลับหน้า
+            currentUserName = document.getElementById('fullname').value;
+            greeting.innerText = 'ยินดีต้อนรับคุณ ' + currentUserName + ' 👋';
+            
             loginScreen.style.display = 'none';
-            galleryScreen.style.display = 'block';
+            mainScreen.style.display = 'block';
+
+            loadPosts(); // โหลดรูปเก่าๆ ขึ้นมาแสดง
+        });
+
+        // โพสต์รูป + บันทึกข้อมูล
+        postForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const file = document.getElementById('imageInput').files[0];
+            const comment = document.getElementById('commentInput').value;
+
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imageSrc = event.target.result;
+
+                // บันทิกลง LocalStorage
+                const savedPosts = JSON.parse(localStorage.getItem('moon_posts') || '[]');
+                savedPosts.push({
+                    author: currentUserName,
+                    image: imageSrc,
+                    comment: comment
+                });
+                localStorage.setItem('moon_posts', JSON.stringify(savedPosts));
+
+                // แสดงผลโพสต์ใหม่
+                renderPost(currentUserName, imageSrc, comment);
+
+                // ล้างค่าในช่องกรอก
+                document.getElementById('imageInput').value = '';
+                document.getElementById('commentInput').value = '';
+            };
+
+            reader.readAsDataURL(file);
         });
     </script>
 </body>
