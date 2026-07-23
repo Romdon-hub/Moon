@@ -1,0 +1,107 @@
+index.html
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #0f172a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 450px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            font-size: 0.85rem;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #38bdf8, #6366f1);
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Moon Project</h1>
+        <p>ยินดีต้อนรับสู่เว็บไซต์สไตล์ Futuristic Glassmorphism</p>
+        <form>
+            <div class="form-group">
+                <label>ชื่อของคุณ</label>
+                <input type="text" placeholder="ระบุชื่อ-นามสกุล">
+            </div>
+            <div class="form-group">
+                <label>อีเมล</label>
+                <input type="email" placeholder="example@email.com">
+            </div>
+            <div class="form-group">
+                <label>ข้อความ</label>
+                <textarea rows="3" placeholder="พิมพ์ข้อความที่นี่..."></textarea>
+            </div>
+            <button type="button">ส่งข้อมูล</button>
+        </form>
+    </div>
+</body>
+</html>
