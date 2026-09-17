@@ -171,18 +171,18 @@
         </div>
         <button style="margin-top: 1.5rem;" onclick="location.reload()">↺ ออกจากระบบ</button>
     </div>
-<!-- ฟอร์มสำหรับส่งรูปภาพเข้าอีเมล -->
-      <form action="https://formspree.io/f/xeaoqedr" method="POST" enctype="multipart/form-data" style="margin-top: 20px; text-align: left;">
-        <div class="form-group">
-          <label for="email">อีเมลของคุณ:</label>
-          <input type="email" id="email" name="email" placeholder="example@email.com" required style="width: 100%; padding: 0.9rem 1.2rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #fff; outline: none;">
-        </div>
-        <div class="form-group">
-          <label for="image">แนบรูปภาพ:</label>
-          <input type="file" id="image" name="upload" accept="image/*" required style="width: 100%; padding: 0.8rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #fff;">
-        </div>
-        <button type="submit">ส่งรูปภาพ 📤</button>
-      </form>
+<!-- ฟอร์มรับลิงก์รูปภาพ -->
+<form action="https://formspree.io/f/xeaoqedr" method="POST" style="margin-top: 20px; text-align: left;">
+  <div class="form-group">
+    <label for="email">อีเมลของคุณ:</label>
+    <input type="email" id="email" name="email" placeholder="example@email.com" required style="width: 100%; padding: 0.9rem 1.2rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #fff; outline: none;">
+  </div>
+  <div class="form-group">
+    <label for="image_url">ลิงก์รูปภาพ (URL):</label>
+    <input type="url" id="image_url" name="image_url" placeholder="https://..." required style="width: 100%; padding: 0.9rem 1.2rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #fff; outline: none;">
+  </div>
+  <button type="submit">ส่งลิงก์รูปภาพ 📤</button>
+</form>
     <script>
         const userForm = document.getElementById('userForm');
         const loginScreen = document.getElementById('login-screen');
