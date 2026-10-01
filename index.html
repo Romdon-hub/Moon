@@ -1,221 +1,52 @@
 <!DOCTYPE html>
-<html lang="th">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moon Project</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            font-family: Arial, sans-serif;
         }
-        body {
-            background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2.5rem;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 550px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        p {
-            color: #94a3b8;
-            margin-bottom: 1.5rem;
-        }
-        .form-group {
-            margin-bottom: 1.2rem;
+        th, td {
+            border: 1px solid #333;
+            padding: 8px 12px;
             text-align: left;
         }
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #cbd5e1;
-            font-size: 0.9rem;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 0.9rem 1.2rem;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            color: #fff;
-            outline: none;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        input[type="text"]:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
-        }
-        button {
-            width: 100%;
-            padding: 0.9rem;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #38bdf8, #6366f1);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 0.5rem;
-        }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
-        }
-        
-        /* สไลด์โชว์รูปภาพ */
-        #gallery-screen {
-            display: none;
-        }
-        .slider-container {
-            position: relative;
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            margin-top: 1rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .slide {
-            display: none;
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-        }
-        .slide.active {
-            display: block;
-        }
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
+        th {
+            background-color: #4CAF50;
             color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
         }
-        .nav-btn:hover {
-            background: rgba(56, 189, 248, 0.8);
-        }
-        .prev { left: 10px; }
-        .next { right: 10px; }
-        
-        .user-greeting {
-            font-size: 1.3rem;
-            color: #38bdf8;
-            margin-bottom: 1rem;
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
 
-    <!-- หน้าที่ 1: กรอกชื่อ -->
-    <div id="login-screen" class="card">
-        <h1>Moon Project</h1>
-        <p>ยินดีต้อนรับเข้าสู่ระบบ กรุณาระบุชื่อของคุณ</p>
-        <form id="userForm">
-            <div class="form-group">
-                <label>ชื่อ - นามสกุล</label>
-                <input type="text" id="fullname" placeholder="ระบุชื่อของคุณ..." required>
-            </div>
-            <button type="submit">เข้าสู่หน้าหลัก 🚀</button>
-        </form>
-    </div>
+<h2>Fruit Classification</h2>
 
-    <!-- หน้าที่ 2: สไลด์โชว์รูปภาพ -->
-    <div id="gallery-screen" class="card">
-        <div id="greeting" class="user-greeting"></div>
-        <p>คอลเลกชันรูปภาพแนะนำ</p>
+<table>
+    <tr>
+        <th>Category</th>
+        <th>Fruit Types</th>
+    </tr>
+    <tr>
+        <td>Pome Fruits</td>
+        <td>Apple</td>
+    </tr>
+    <tr>
+        <td>Berry Fruits</td>
+        <td>Red Grapes, Green Grapes, Blackberry</td>
+    </tr>
+    <tr>
+        <td>Tropical Fruits</td>
+        <td>Mango, Pineapple</td>
+    </tr>
+    <tr>
+        <td>Nuts/Seeds</td>
+        <td>Almond</td>
+    </tr>
+</table>
 
-       <!-- สไลเดอร์รูปภาพ -->
-        <div class="slider-container">
-            <!-- 🖼️ รูปที่ 1 -->
-            <img class="slide active" src="21855_0.jpg" alt="Photo 1">
-            
-            <!-- 🖼️ รูปที่ 2 -->
-            <img class="slide" src="21857_0.jpg" alt="Photo 2">
-            
-            <!-- ปุ่มกดเปลี่ยนรูป -->
-            <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
-            <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
-        </div>
-        <button style="margin-top: 1.5rem;" onclick="location.reload()">↺ ออกจากระบบ</button>
-    </div>
-<!-- ฟอร์มส่งข้อความและรูปภาพเข้าอีเมล -->
-      <form action="https://formsubmit.co/your-email@example.com" method="POST" enctype="multipart/form-data" style="margin-top: 20px; text-align: left;">
-        <input type="hidden" name="_captcha" value="false">
-        
-        <div class="form-group" style="margin-bottom: 12px;">
-          <label for="user_email">อีเมลของคุณ:</label>
-          <input type="email" id="user_email" name="email" placeholder="example@email.com" required style="width: 100%; padding: 0.8rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; color: #fff; outline: none;">
-        </div>
-
-        <div class="form-group" style="margin-bottom: 12px;">
-          <label for="message">ข้อความ:</label>
-          <textarea id="message" name="message" rows="3" placeholder="พิมพ์ข้อความที่นี่..." style="width: 100%; padding: 0.8rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; color: #fff; outline: none; resize: vertical;"></textarea>
-        </div>
-
-        <div class="form-group" style="margin-bottom: 12px;">
-          <label for="attachment">แนบไฟล์รูปภาพ:</label>
-          <input type="file" id="attachment" name="attachment" accept="image/*" style="width: 100%; padding: 0.6rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; color: #fff;">
-        </div>
-
-        <button type="submit" style="margin-top: 10px; padding: 10px 20px; cursor: pointer;">ส่งข้อมูลเข้าอีเมล 📩</button>
-      </form>
-</form>
-    <script>
-        const userForm = document.getElementById('userForm');
-        const loginScreen = document.getElementById('login-screen');
-        const galleryScreen = document.getElementById('gallery-screen');
-        const greeting = document.getElementById('greeting');
-
-        userForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('fullname').value;
-            greeting.innerText = 'สวัสดีคุณ ' + name + ' 👋';
-            loginScreen.style.display = 'none';
-            galleryScreen.style.display = 'block';
-        });
-
-        // โค้ดเลื่อนสไลด์รูปภาพ
-        let currentSlide = 0;
-        const slides = document.getElementsByClassName('slide');
-
-        function changeSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-    </script>
 </body>
 </html>
